@@ -1,0 +1,14 @@
+.blank-section {
+    width: 100%;
+    height: calc(100vh - 155px);
+    background-color: white;
+    font-size: 30px;
+    display: none;
+    text-align: center;
+}
+
+.blank-section.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
