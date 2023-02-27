@@ -1,9 +1,45 @@
 import React from 'react'
 import { RiSettings3Fill } from 'react-icons/ri'
 import { ImCross } from 'react-icons/im'
+import { BsFillInfoCircleFill } from 'react-icons/bs'
 import './overview.css'
 
 function OverView() {
+
+    function checkValue(){
+        let renderInput = document.getElementById('render-input')
+
+        if(renderInput.value > 100){
+            renderInput.value = 100
+        }else if (renderInput.value < 0){
+            renderInput.value = 0
+        }
+    }
+
+    function render() {
+        let renderInput = document.getElementById('render-input')
+        let value = document.querySelector('.progress-value')
+        let circleProgress = document.querySelector('.circle-progress')
+        let start = 0
+        
+        let progress = setInterval(() => {
+            if(renderInput.value === 0){
+                start = 0
+            }else if(renderInput.value > 0) {
+                start++
+            }
+            value.textContent = start + '%'
+            circleProgress.style.background = 'conic-gradient(#80c617 ' + start * 3.6 + 'deg, #f5f5f5 0deg)'
+            if (start == renderInput.value) {
+                clearInterval(progress)
+            }
+        }, 5);
+    }
+
+    function handleInfo(){
+        let infoContainer = document.getElementById('info-container')
+        infoContainer.classList.toggle('show')
+    }
   return (
     <section className='overview-section show'>
       <div className='left-overview'>
@@ -73,7 +109,15 @@ function OverView() {
                 <p>Project Progress</p>
                 <div className='progress-container'>
                     <div className='circle-progress'>
-                        <div className='progress-value'>100%</div>
+                        <div className='progress-value'>0%</div>
+                    </div>
+                </div>
+                <div id='demo-countainer'>
+                    <input type='number' id='render-input' placeholder='Enter a number' onChange={checkValue} />
+                    <button onClick={render}>Render</button>
+                    <BsFillInfoCircleFill onClick={handleInfo} id='render-info' />
+                    <div id='info-container'>
+                    <span>This conatiner is for demo only</span>
                     </div>
                 </div>
             </div>
